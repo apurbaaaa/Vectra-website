@@ -90,13 +90,8 @@ body::after {
   font-size: 0.95rem;
   border-radius: 100px;
   text-decoration: none;
-  transition: transform 0.2s var(--transition), box-shadow 0.2s;
   position: relative;
   overflow: hidden;
-}
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 200, 255, 0.35);
 }
 .btn-ghost {
   display: inline-block;
@@ -108,9 +103,7 @@ body::after {
   font-size: 0.95rem;
   border-radius: 100px;
   text-decoration: none;
-  transition: border-color 0.2s, color 0.2s;
 }
-.btn-ghost:hover { border-color: var(--color-primary); color: var(--color-primary); }
 
 /* Animated scroll chevron */
 .scroll-chevron {

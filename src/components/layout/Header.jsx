@@ -61,12 +61,12 @@ export default function Header() {
               aria-label="Toggle theme"
               style={{
                 background: 'transparent', border: '1px solid var(--color-border)', 
-                color: 'var(--color-text)', borderRadius: '50%', width: '40px', height: '40px',
+                color: 'var(--color-text)', borderRadius: '100px', padding: '8px 16px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-                transition: 'background 0.2s, color 0.2s'
+                transition: 'background 0.2s, color 0.2s', fontFamily: 'var(--font-body)', fontSize: '0.85rem', fontWeight: 500
               }}
             >
-              {theme === 'dark' ? '☀️' : '🌙'}
+              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
             </button>
             <Link to="/#demo" className="header__cta" id="header-cta">
               Request Demo
@@ -196,12 +196,6 @@ export default function Header() {
           overflow: hidden;
         }
 
-        .header__cta:hover {
-          background: #33d4ff;
-          transform: translateY(-1px);
-          box-shadow: 0 4px 20px rgba(0, 200, 255, 0.3);
-        }
-
         .header__hamburger {
           display: none;
           flex-direction: column;
@@ -284,10 +278,6 @@ export default function Header() {
           text-align: center;
           margin-top: 16px;
           transition: all 0.3s var(--transition);
-        }
-
-        .mobile-drawer__cta:hover {
-          background: #33d4ff;
         }
 
         @media (max-width: 768px) {
