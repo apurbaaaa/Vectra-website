@@ -90,7 +90,7 @@ export default function Footer() {
 
       <style>{`
         .footer {
-          background: var(--color-surface);
+          background: var(--color-footer-bg);
           border-top: 1px solid var(--color-border);
           padding: 80px 40px 40px;
           position: relative;
@@ -132,7 +132,7 @@ export default function Footer() {
           font-family: var(--font-display);
           font-size: 0.8rem;
           font-weight: 600;
-          color: var(--color-text);
+          color: var(--color-text-muted);
           text-transform: uppercase;
           letter-spacing: 0.1em;
           margin-bottom: 20px;
@@ -152,7 +152,7 @@ export default function Footer() {
         }
 
         .footer__link:hover {
-          color: var(--color-text);
+          color: var(--color-accent);
         }
 
         .footer__bottom {

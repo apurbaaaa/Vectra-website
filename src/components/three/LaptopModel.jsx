@@ -5,16 +5,16 @@ import * as THREE from "three";
 import ScreenMaterial from "./ScreenMaterial";
 
 // Camera keyframes for scroll animation
-const CAMERA_START = { x: 0, y: 0.5, z: 5 };
-const CAMERA_END = { x: -6, y: 0.2, z: 0.3 };
+const CAMERA_START = { x: 2, y: 0.5, z: 5 };
+const CAMERA_END = { x: -2, y: 0.4, z: 0.3 };
 
 export default function LaptopModel({ scrollProgress }) {
   const { camera } = useThree();
   const laptopRef = useRef();
   const idleRef = useRef({ active: true });
 
-  // Load the GLTF model
-  const { scene, nodes } = useGLTF("/models/laptop.glb");
+  // Load the GLTF model (Draco-compressed)
+  const { scene, nodes } = useGLTF("/models/macbook.glb", "https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
 
   useEffect(() => {
     if (!scene) return;
@@ -77,8 +77,8 @@ export default function LaptopModel({ scrollProgress }) {
     camera.lookAt(0, 0, 0);
   });
 
-  // Find the screen mesh by name — adjust "Screen" to match your actual .glb mesh name
-  const screenMesh = nodes?.Box20311_1_1;
+  // Screen mesh — Object_123 uses material "sfCQkHOWyrsLmor" (black + full white emissive = screen)
+  const screenMesh = nodes?.Object_123;
 
   return (
 
@@ -86,12 +86,12 @@ export default function LaptopModel({ scrollProgress }) {
       {/* Adjust the middle value (Y) to shift the model up or down. 
         Positive numbers move it up towards the header. 
       */}
-      <group position={[0, 1.2, 0]}> 
+      <group position={[0, 0.5, 0]}> 
         <primitive object={scene} />
-        {screenMesh && <ScreenMaterial mesh={screenMesh} />}
+        {screenMesh && <ScreenMaterial mesh={screenMesh} scrollProgress={scrollProgress} />}
       </group>
     </group>
   );
 }
 
-useGLTF.preload("/models/laptop.glb");
+useGLTF.preload("/models/macbook.glb", "https://www.gstatic.com/draco/versioned/decoders/1.5.7/");

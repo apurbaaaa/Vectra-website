@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useTheme } from '../../contexts/ThemeContext'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -17,18 +18,7 @@ export default function Header() {
     setMobileOpen(false)
   }, [location])
 
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'dark'
-  })
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
-  }, [theme])
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark')
-  }
+  const { theme, toggleTheme } = useTheme()
 
   const navLinks = [
     { label: 'Features', path: '/features' },
@@ -41,7 +31,9 @@ export default function Header() {
     <>
       <header id="site-header" className={`header ${scrolled ? 'header--scrolled' : ''}`}>
         <div className="header__inner">
-          <Link to="/" className="header__logo">Vectrah</Link>
+          <Link to="/" className="header__logo">
+            <img src="/logo/logo.svg?v=4" alt="Vectrah" style={{ height: '36px', width: 'auto', display: 'block' }} />
+          </Link>
 
           <nav className="header__nav" id="main-nav" role="navigation">
             {navLinks.map((link) => (
@@ -121,13 +113,17 @@ export default function Header() {
           display: flex;
           align-items: center;
           transition: background 0.4s var(--transition), backdrop-filter 0.4s var(--transition);
+          background: var(--color-header-bg);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: none;
         }
 
         .header--scrolled {
-          background: var(--color-header-bg);
+          background: var(--color-header-scrolled);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
-          border-bottom: 1px solid var(--color-border);
+          border: none;
         }
 
         .header__inner {
@@ -140,13 +136,9 @@ export default function Header() {
         }
 
         .header__logo {
-          font-family: var(--font-display);
-          font-size: 1.4rem;
-          font-weight: 700;
-          color: var(--color-primary);
+          display: flex;
+          align-items: center;
           text-decoration: none;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
         }
 
         .header__nav {
@@ -167,7 +159,7 @@ export default function Header() {
 
         .header__link:hover,
         .header__link--active {
-          color: var(--color-text);
+          color: var(--color-accent);
         }
 
         .header__link--active::after {

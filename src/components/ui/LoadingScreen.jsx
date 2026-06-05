@@ -11,14 +11,14 @@ export default function LoadingScreen({ onComplete }) {
     // Simulate asset loading progress
     let p = 0
     const interval = setInterval(() => {
-      p += Math.random() * 18
+      p += Math.random() * 8
       if (p >= 100) {
         p = 100
         clearInterval(interval)
         setTimeout(reveal, 500)
       }
       setProgress(Math.min(Math.round(p), 100))
-    }, 120)
+    }, 100)
 
     return () => clearInterval(interval)
   }, [])
@@ -56,35 +56,35 @@ export default function LoadingScreen({ onComplete }) {
 const styles = {
   overlay: {
     position: 'fixed', inset: 0, zIndex: 9999,
-    background: 'var(--color-bg)',
+    background: 'var(--color-loading-bg)',
     display: 'flex', flexDirection: 'column',
     alignItems: 'center', justifyContent: 'center', gap: '20px',
   },
   logo: {
     fontFamily: "'Syne', sans-serif",
     fontSize: '2.2rem', fontWeight: 700,
-    letterSpacing: '0.3em', color: '#00c8ff',
+    letterSpacing: '0.3em', color: 'var(--color-loading-logo)',
     textTransform: 'uppercase',
   },
   track: {
     width: '260px', height: '2px',
-    background: 'rgba(255,255,255,0.08)',
+    background: 'var(--color-loading-track)',
     borderRadius: '2px', overflow: 'hidden',
   },
   fill: {
     height: '100%', width: '0%',
-    background: '#00c8ff',
+    background: 'var(--color-loading-logo)',
     borderRadius: '2px',
     transition: 'width 0.15s ease',
   },
   pct: {
     fontFamily: "'DM Sans', sans-serif",
-    fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)',
+    fontSize: '0.8rem', color: 'var(--color-loading-text)',
     letterSpacing: '0.1em',
   },
   label: {
     fontFamily: "'DM Sans', sans-serif",
-    fontSize: '0.75rem', color: 'rgba(255,255,255,0.25)',
+    fontSize: '0.75rem', color: 'var(--color-loading-text)',
     letterSpacing: '0.05em',
   }
 }
