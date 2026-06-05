@@ -17,6 +17,19 @@ export default function Header() {
     setMobileOpen(false)
   }, [location])
 
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark'
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark')
+  }
+
   const navLinks = [
     { label: 'Features', path: '/features' },
     { label: 'About', path: '/about' },
@@ -42,9 +55,23 @@ export default function Header() {
             ))}
           </nav>
 
-          <Link to="/#demo" className="header__cta" id="header-cta">
-            Request Demo
-          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <button 
+              onClick={toggleTheme} 
+              aria-label="Toggle theme"
+              style={{
+                background: 'transparent', border: '1px solid var(--color-border)', 
+                color: 'var(--color-text)', borderRadius: '50%', width: '40px', height: '40px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                transition: 'background 0.2s, color 0.2s'
+              }}
+            >
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
+            <Link to="/#demo" className="header__cta" id="header-cta">
+              Request Demo
+            </Link>
+          </div>
 
           <button
             className={`header__hamburger ${mobileOpen ? 'header__hamburger--open' : ''}`}
@@ -97,7 +124,7 @@ export default function Header() {
         }
 
         .header--scrolled {
-          background: rgba(5, 8, 16, 0.75);
+          background: var(--color-header-bg);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           border-bottom: 1px solid var(--color-border);
@@ -212,7 +239,7 @@ export default function Header() {
           right: 0;
           width: 300px;
           height: 100vh;
-          background: rgba(13, 17, 23, 0.97);
+          background: var(--color-header-bg);
           backdrop-filter: blur(24px);
           -webkit-backdrop-filter: blur(24px);
           z-index: 999;

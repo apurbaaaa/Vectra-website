@@ -132,7 +132,7 @@ export default function About() {
       <style>{`
         .about-card {
           background: var(--color-surface);
-          border: 1px solid rgba(255,255,255,0.06);
+          border: 1px solid var(--color-border);
           border-radius: var(--radius-lg);
           padding: 32px;
           transition: transform 0.25s, box-shadow 0.25s;
@@ -143,8 +143,8 @@ export default function About() {
         }
 
         .team-card {
-          background: rgba(13, 17, 23, 0.4);
-          border: 1px solid rgba(255,255,255,0.03);
+          background: var(--color-surface);
+          border: 1px solid var(--color-border);
           border-radius: var(--radius-md);
           padding: 32px;
           text-align: center;
@@ -152,8 +152,7 @@ export default function About() {
         }
         .team-card:hover {
           transform: translateY(-5px);
-          background: rgba(13, 17, 23, 0.8);
-          border-color: rgba(255,255,255,0.08);
+          border-color: var(--color-primary);
         }
         .team-avatar {
           width: 80px;
@@ -187,7 +186,7 @@ export default function About() {
           top: 24px;
           bottom: -40px;
           width: 2px;
-          background: rgba(255,255,255,0.05);
+          background: var(--color-border);
         }
         .timeline-year {
           font-family: var(--font-display);

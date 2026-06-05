@@ -10,6 +10,9 @@
   --color-text:       #e8edf5;
   --color-text-muted: #6b7a99;
   --color-border:     rgba(255,255,255,0.07);
+  --color-header-bg:  rgba(5, 8, 16, 0.88);
+  --color-cta-start:  #0f1a2e;
+  --color-cta-end:    #050810;
   --font-display:     'Syne', sans-serif;
   --font-body:        'DM Sans', sans-serif;
   --radius-sm:        8px;
@@ -17,6 +20,19 @@
   --radius-lg:        20px;
   --transition:       cubic-bezier(0.16, 1, 0.3, 1);
   --max-width:        1200px;
+}
+
+:root[data-theme="light"] {
+  --color-bg:         #f4f6fa;
+  --color-surface:    #ffffff;
+  --color-primary:    #0088ff;
+  --color-accent:     #6b4ce6;
+  --color-text:       #0f172a;
+  --color-text-muted: #475569;
+  --color-border:     rgba(0,0,0,0.08);
+  --color-header-bg:  rgba(244, 246, 250, 0.88);
+  --color-cta-start:  #e2e8f0;
+  --color-cta-end:    #f4f6fa;
 }
 
 html { scroll-behavior: smooth; }
@@ -134,7 +150,7 @@ body::after {
 
 header { transition: background 0.3s, backdrop-filter 0.3s; }
 header.scrolled {
-  background: rgba(5, 8, 16, 0.88) !important;
+  background: var(--color-header-bg) !important;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);

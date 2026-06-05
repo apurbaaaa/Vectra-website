@@ -56,7 +56,7 @@ export default function LoadingScreen({ onComplete }) {
 const styles = {
   overlay: {
     position: 'fixed', inset: 0, zIndex: 9999,
-    background: '#050810',
+    background: 'var(--color-bg)',
     display: 'flex', flexDirection: 'column',
     alignItems: 'center', justifyContent: 'center', gap: '20px',
   },

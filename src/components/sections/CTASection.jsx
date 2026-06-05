@@ -2,7 +2,7 @@ export default function CTASection() {
   return (
     <section id="cta" style={{
       minHeight: '40vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: 'radial-gradient(ellipse at center, #0f1a2e 0%, #050810 70%)',
+      background: 'radial-gradient(ellipse at center, var(--color-cta-start) 0%, var(--color-cta-end) 70%)',
       padding: '40px 10vw', textAlign: 'center'
     }}>
       <div id="cta-content">

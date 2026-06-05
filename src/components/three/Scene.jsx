@@ -18,7 +18,7 @@ export default function Scene({ scrollProgress }) {
           toneMappingExposure: 1.2,
         }}
         dpr={[1, 2]}
-        style={{ background: '#050810' }}
+        style={{ background: 'var(--color-bg)' }}
         onCreated={({ gl }) => {
           const handleVisibility = () => {
             if (document.hidden) gl.setAnimationLoop(null)
