@@ -43,7 +43,9 @@ export default function LoadingScreen({ onComplete }) {
 
   return (
     <div ref={overlayRef} style={styles.overlay}>
-      <div style={styles.logo}>Vectrah</div>
+      <div style={styles.logoContainer}>
+        <img src="/Logo/logo.png" alt="Vectrah" style={styles.logoImage} />
+      </div>
       <div style={styles.track}>
         <div ref={fillRef} style={styles.fill} />
       </div>
@@ -60,11 +62,15 @@ const styles = {
     display: 'flex', flexDirection: 'column',
     alignItems: 'center', justifyContent: 'center', gap: '20px',
   },
-  logo: {
-    fontFamily: "'Syne', sans-serif",
-    fontSize: '2.2rem', fontWeight: 700,
-    letterSpacing: '0.3em', color: 'var(--color-loading-logo)',
-    textTransform: 'uppercase',
+  logoContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoImage: {
+    height: '200px',
+    width: 'auto',
+    display: 'block',
   },
   track: {
     width: '260px', height: '2px',
