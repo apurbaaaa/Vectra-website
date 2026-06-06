@@ -36,8 +36,8 @@ export default function ParticleBackground() {
         this.baseAlpha = Math.random() * 0.6 + 0.2
         this.alpha = 0
         this.targetAlpha = 0
-        // Target orbit radius for the swirl. Increased radius spread to maintain density while adding more particles
-        this.orbitRadius = Math.pow(Math.random(), 3) * 700 + 20
+        // Target orbit radius for the swirl. Reduced bias to Math.pow(x, 2) to spread particles out more and lower the density
+        this.orbitRadius = Math.pow(Math.random(), 2) * 700 + 20
         // Determine whether this particle swirls clockwise or counter-clockwise (or we can make them all swirl same way)
         this.swirlDirection = 1 // All swirl same way like a galaxy
       }
@@ -125,7 +125,7 @@ export default function ParticleBackground() {
       }
     }
 
-    const PARTICLE_COUNT = window.innerWidth < 768 ? 2000 : 7000
+    const PARTICLE_COUNT = window.innerWidth < 768 ? 1000 : 3500
     const particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle())
 
     // Connection lines removed per user request
