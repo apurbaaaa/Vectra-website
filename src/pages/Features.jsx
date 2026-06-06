@@ -28,8 +28,9 @@ export default function Features() {
     // Set initial states: panels 1+ are hidden / pushed down
     gsap.set(panels.slice(1), { yPercent: 100, opacity: 0 })
     
-    // Highlight the first dot
-    gsap.set(dots[0], { scale: 1.5, backgroundColor: 'var(--color-primary)' })
+    // Highlight the first dot, and ensure others are styled as inactive
+    gsap.set(dots[0], { scale: 1.5, backgroundColor: 'var(--color-primary)', opacity: 1 })
+    gsap.set(dots.slice(1), { scale: 1, backgroundColor: 'var(--color-text-subtle)', opacity: 0.4 })
     gsap.set(labels[0], { opacity: 1, x: 0 })
 
     const tl = gsap.timeline({
@@ -47,13 +48,15 @@ export default function Features() {
     panels.forEach((panel, i) => {
       if (i === 0) return
 
+      const timeOffset = i * 2
+
       // Timeline panel transition: fade/slide out previous panel
       tl.to(panels[i - 1], {
         yPercent: -30,
         opacity: 0,
         ease: 'power2.inOut',
         duration: 1,
-      }, `panel-${i}`)
+      }, timeOffset)
 
       // Timeline panel transition: incoming panel
       tl.to(panel, {
@@ -61,32 +64,34 @@ export default function Features() {
         opacity: 1,
         ease: 'power2.inOut',
         duration: 1,
-      }, `panel-${i}`)
+      }, timeOffset)
 
       // Animate active/inactive dots & labels
       tl.to(dots[i - 1], {
         scale: 1,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: 'var(--color-text-subtle)',
+        opacity: 0.4,
         duration: 0.3
-      }, `panel-${i}-=0.5`)
+      }, timeOffset)
       
       tl.to(labels[i - 1], {
         opacity: 0,
         x: 10,
         duration: 0.3
-      }, `panel-${i}-=0.5`)
+      }, timeOffset)
 
       tl.to(dots[i], {
         scale: 1.5,
         backgroundColor: 'var(--color-primary)',
+        opacity: 1,
         duration: 0.3
-      }, `panel-${i}-=0.5`)
+      }, timeOffset + 0.5)
 
       tl.to(labels[i], {
         opacity: 1,
         x: 0,
         duration: 0.3
-      }, `panel-${i}-=0.5`)
+      }, timeOffset + 0.5)
 
       // Add a subtle entrance zoom to the content of the coming panel
       const content = panel.querySelector('.feature-content')
@@ -94,7 +99,7 @@ export default function Features() {
         tl.fromTo(content,
           { y: 40, opacity: 0 },
           { y: 0, opacity: 1, ease: 'power2.out', duration: 0.6 },
-          `panel-${i}-=0.3`
+          timeOffset + 0.4
         )
       }
     })

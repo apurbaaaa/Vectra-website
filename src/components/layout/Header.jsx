@@ -23,8 +23,8 @@ export default function Header() {
   const navLinks = [
     { label: 'Features', path: '/features' },
     { label: 'About', path: '/about' },
-    { label: 'Pricing', path: '/#pricing' }, // Note: Add pricing section or route later if needed
-    { label: 'Contact', path: '/#cta' },
+    { label: 'Pricing', path: '/pricing' },
+    { label: 'Contact', path: '/contact' },
   ]
 
   return (
