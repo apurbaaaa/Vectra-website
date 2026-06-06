@@ -1,6 +1,9 @@
+import ParticleBackground from '../ui/ParticleBackground'
+
 export default function Hero() {
   return (
-    <section id="hero" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '0 10vw' }}>
+    <section id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '0 10vw', overflow: 'hidden', background: 'transparent' }}>
+      <ParticleBackground />
       <div id="hero-headline" style={{ position: 'relative', zIndex: 2, maxWidth: 680 }}>
         <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', letterSpacing: '0.2em',
           textTransform: 'uppercase', color: 'var(--color-primary)', marginBottom: 20 }}>

@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy, Suspense, useEffect } from 'react'
 const Scene = lazy(() => import('../components/three/Scene'))
 import { useWebGLFallback } from '../hooks/useWebGLFallback'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
@@ -12,14 +12,23 @@ import CTASection from '../components/sections/CTASection'
 
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [sceneVisible, setSceneVisible] = useState(false)
   const { supported } = useWebGLFallback()
 
-  useScrollAnimation(setScrollProgress)
+  useScrollAnimation(setScrollProgress, setSceneVisible)
 
   return (
     <main>
       {supported
-        ? <Suspense fallback={null}><Scene scrollProgress={scrollProgress} /></Suspense>
+        ? (
+            <div style={{
+              opacity: sceneVisible ? 1 : 0,
+              transition: 'opacity 0.8s ease',
+              pointerEvents: sceneVisible ? 'auto' : 'none',
+            }}>
+              <Suspense fallback={null}><Scene scrollProgress={scrollProgress} sceneVisible={sceneVisible} /></Suspense>
+            </div>
+          )
         : <video
             autoPlay muted loop playsInline
             style={{ position: 'fixed', inset: 0, width: '100%', height: '100%',
@@ -29,11 +38,13 @@ export default function Home() {
       }
       <div id="page-content">
         <Hero />
-        <STTSection />
-        <AISection />
-        <LevelsSection />
-        <SpeedSection />
-        <SecuritySection />
+        <div id="features-wrapper">
+          <STTSection />
+          <AISection />
+          <LevelsSection />
+          <SpeedSection />
+          <SecuritySection />
+        </div>
         <CTASection />
       </div>
     </main>

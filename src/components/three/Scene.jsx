@@ -5,10 +5,11 @@ import LaptopModel from './LaptopModel'
 import Particles from './Particles'
 import SceneLighting from './SceneLighting'
 
-export default function Scene({ scrollProgress }) {
+export default function Scene({ scrollProgress, sceneVisible }) {
   return (
     <div id="webgl-canvas-wrapper">
       <Canvas
+        frameloop={sceneVisible ? 'always' : 'never'}
         camera={{ fov: 45, position: [0, 0.5, 4], near: 0.01, far: 100 }}
         gl={{
           antialias: true,

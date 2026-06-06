@@ -3,16 +3,19 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
-export function useScrollAnimation(onProgressUpdate) {
+export function useScrollAnimation(onProgressUpdate, onVisibilityChange) {
   useEffect(() => {
     // Master scroll trigger: drives camera zoom via scrollProgress state
     ScrollTrigger.create({
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom+=250% top',
+      trigger: '#features-wrapper',
+      start: 'top 80%',
+      end: 'bottom 60%',
       scrub: 1.5,
       onUpdate: (self) => {
         onProgressUpdate?.(self.progress)
+      },
+      onToggle: (self) => {
+        onVisibilityChange?.(self.isActive)
       }
     })
 
