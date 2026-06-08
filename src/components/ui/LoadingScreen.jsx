@@ -44,7 +44,7 @@ export default function LoadingScreen({ onComplete }) {
   return (
     <div ref={overlayRef} style={styles.overlay}>
       <div style={styles.logoContainer}>
-        <img src="/Logo/logo.png" alt="Vectrah" style={styles.logoImage} />
+        <img src="/Logo/logonobg.png" alt="Vectrah" style={styles.logoImage} />
       </div>
       <div style={styles.track}>
         <div ref={fillRef} style={styles.fill} />

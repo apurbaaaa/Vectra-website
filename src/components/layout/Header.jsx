@@ -32,7 +32,7 @@ export default function Header() {
       <header id="site-header" className={`header ${scrolled ? 'header--scrolled' : ''}`}>
         <div className="header__inner">
           <Link to="/" className="header__logo">
-            <img src="/Logo/logo.png" alt="Vectrah" style={{ height: '200px', width: 'auto', display: 'block' }} />
+            <img src="/Logo/logonobg.png" alt="Vectrah" style={{ height: '200px', width: 'auto', display: 'block' }} />
           </Link>
 
           <nav className="header__nav" id="main-nav" role="navigation">
