@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useTheme } from '../../contexts/ThemeContext'
-
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -17,9 +15,6 @@ export default function Header() {
   useEffect(() => {
     setMobileOpen(false)
   }, [location])
-
-  const { theme, toggleTheme } = useTheme()
-
   const navLinks = [
     { label: 'Features', path: '/features' },
     { label: 'About', path: '/about' },
@@ -48,18 +43,6 @@ export default function Header() {
           </nav>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <button 
-              onClick={toggleTheme} 
-              aria-label="Toggle theme"
-              style={{
-                background: 'transparent', border: '1px solid var(--color-border)', 
-                color: 'var(--color-text)', borderRadius: '100px', padding: '8px 16px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-                transition: 'background 0.2s, color 0.2s', fontFamily: 'var(--font-body)', fontSize: '0.85rem', fontWeight: 500
-              }}
-            >
-              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-            </button>
             <Link to="/#demo" className="header__cta" id="header-cta">
               Request Demo
             </Link>

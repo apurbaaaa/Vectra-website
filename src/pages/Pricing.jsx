@@ -37,10 +37,6 @@ export default function Pricing() {
           letter-spacing: 0.05em;
           margin-top: 10px;
         }
-
-        :root[data-theme="dark"] .coming-soon-badge {
-          color: var(--color-primary);
-        }
       `}</style>
     </main>
   )

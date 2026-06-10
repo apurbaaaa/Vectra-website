@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { gsap } from 'gsap'
-import { ThemeProvider } from './contexts/ThemeContext'
 import Home from './pages/Home'
 import About from './pages/About'
 import Features from './pages/Features'
@@ -17,13 +16,11 @@ export default function App() {
   const [isLoaded, setIsLoaded] = useState(false)
 
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <CustomCursor />
-        <LoadingScreen onComplete={() => setIsLoaded(true)} />
-        {isLoaded && <AppContent />}
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <CustomCursor />
+      <LoadingScreen onComplete={() => setIsLoaded(true)} />
+      {isLoaded && <AppContent />}
+    </BrowserRouter>
   )
 }
 

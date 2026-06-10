@@ -119,15 +119,6 @@ export default function Contact() {
           border-color: rgba(255, 68, 68, 0.3);
           color: var(--color-text);
         }
-        
-        :root[data-theme="dark"] .alert-success {
-          background: rgba(0, 184, 232, 0.12);
-        }
-        
-        :root[data-theme="dark"] .alert-error {
-          background: rgba(255, 68, 68, 0.12);
-        }
-
         .contact-form {
           background: var(--color-surface);
           border: 1px solid var(--color-border);
@@ -135,14 +126,6 @@ export default function Contact() {
           padding: 40px;
           box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-
-        :root[data-theme="dark"] .contact-form {
-          background: rgba(13, 17, 23, 0.5);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
         .form-group {
           margin-bottom: 24px;
         }
