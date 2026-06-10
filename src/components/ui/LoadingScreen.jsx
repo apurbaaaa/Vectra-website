@@ -42,16 +42,30 @@ export default function LoadingScreen({ onComplete }) {
   }
 
   return (
-    <div ref={overlayRef} style={styles.overlay}>
-      <div style={styles.logoContainer}>
-        <img src="/Logo/logonobg.png" alt="Vectrah" style={styles.logoImage} />
+    <>
+      <div ref={overlayRef} style={styles.overlay}>
+        <div style={styles.logoContainer}>
+          <img src="/Logo/logonobg.png" alt="Vectrah" className="loading-logo" />
+        </div>
+        <div style={styles.track}>
+          <div ref={fillRef} style={styles.fill} />
+        </div>
+        <div ref={pctRef} style={styles.pct}>0%</div>
+        <div style={styles.label}>Initializing experience…</div>
       </div>
-      <div style={styles.track}>
-        <div ref={fillRef} style={styles.fill} />
-      </div>
-      <div ref={pctRef} style={styles.pct}>0%</div>
-      <div style={styles.label}>Initializing experience…</div>
-    </div>
+      <style>{`
+        .loading-logo {
+          height: 180px;
+          width: auto;
+          display: block;
+        }
+        @media (max-width: 768px) {
+          .loading-logo {
+            height: 100px;
+          }
+        }
+      `}</style>
+    </>
   )
 }
 
@@ -68,9 +82,7 @@ const styles = {
     alignItems: 'center',
   },
   logoImage: {
-    height: '200px',
-    width: 'auto',
-    display: 'block',
+    // Moved to CSS
   },
   track: {
     width: '260px', height: '2px',

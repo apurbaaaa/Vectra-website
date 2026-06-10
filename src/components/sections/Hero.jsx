@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Hero() {
   return (
-    <section id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '0 6vw', overflow: 'hidden', background: 'transparent' }}>
+    <section id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '120px 6vw 0 6vw', overflow: 'hidden', background: 'transparent' }}>
       <ParticleBackground />
       <div id="hero-headline" style={{ position: 'relative', zIndex: 2, maxWidth: 680, width: '100%' }}>
         <p style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.65rem, 1.8vw, 0.8rem)', letterSpacing: '0.15em',
