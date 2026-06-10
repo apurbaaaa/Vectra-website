@@ -91,7 +91,7 @@ export default function Header() {
           right: 0;
           z-index: 1000;
           padding: 0 40px;
-          height: 72px;
+          height: 80px;
           display: flex;
           align-items: center;
           transition: background 0.4s var(--transition), backdrop-filter 0.4s var(--transition);
@@ -260,7 +260,7 @@ export default function Header() {
           .header__cta { display: none; }
           .header__hamburger { display: flex; }
           .header__logo img {
-            height: 48px !important;
+            height: 120px !important;
           }
           .mobile-drawer {
             width: 100%;
