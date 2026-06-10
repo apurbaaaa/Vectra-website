@@ -26,7 +26,7 @@ export default function Header() {
       <header id="site-header" className={`header ${scrolled ? 'header--scrolled' : ''}`}>
         <div className="header__inner">
           <Link to="/" className="header__logo">
-            <img src="/Logo/logonobg.png" alt="Vectrah" style={{ height: '200px', width: 'auto', display: 'block' }} />
+            <img src="/Logo/logonobg.png" alt="Vectrah" style={{ height: '60px', width: 'auto', display: 'block' }} />
           </Link>
 
           <nav className="header__nav" id="main-nav" role="navigation">
@@ -260,7 +260,7 @@ export default function Header() {
           .header__cta { display: none; }
           .header__hamburger { display: flex; }
           .header__logo img {
-            height: 120px !important;
+            height: 48px !important;
           }
           .mobile-drawer {
             width: 100%;
