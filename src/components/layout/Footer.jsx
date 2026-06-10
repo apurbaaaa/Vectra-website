@@ -64,7 +64,7 @@ export default function Footer() {
 
           {/* Bottom Bar */}
           <div className="footer__bottom">
-            <p className="footer__copyright">© 2025 Vectrah. All rights reserved.</p>
+            <p className="footer__copyright">© 2026 Vectrah. All rights reserved.</p>
             <div className="footer__socials">
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="LinkedIn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
