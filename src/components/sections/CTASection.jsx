@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function CTASection() {
   return (
     <section id="cta" style={{
@@ -18,8 +20,8 @@ export default function CTASection() {
           Start free. No credit card required. Full access for 30 days.
         </p>
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="#" className="btn-primary">Start Free Trial</a>
-          <a href="#" className="btn-ghost">Book a Demo →</a>
+          <Link to="/coming-soon" className="btn-primary">Start Free Trial</Link>
+          <Link to="/contact" className="btn-ghost">Contact Us</Link>
         </div>
       </div>
     </section>

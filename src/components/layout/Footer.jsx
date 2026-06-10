@@ -2,24 +2,22 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   const productLinks = [
-    { label: 'Features', path: '/#features' },
-    { label: 'Pricing', path: '/#pricing' },
-    { label: 'Security', path: '/#security' },
-    { label: 'Changelog', path: '/#changelog' },
+    { label: 'Features', path: '/features' },
+    { label: 'Pricing', path: '/pricing' },
+    { label: 'Changelog', path: '/coming-soon' },
   ]
 
   const companyLinks = [
     { label: 'About', path: '/about' },
-    { label: 'Blog', path: '/#blog' },
-    { label: 'Careers', path: '/#careers' },
-    { label: 'Press', path: '/#press' },
+    { label: 'Blog', path: '/coming-soon' },
+    { label: 'Careers', path: '/coming-soon' },
+    { label: 'Press', path: '/coming-soon' },
   ]
 
   const legalLinks = [
-    { label: 'Privacy Policy', path: '/#privacy' },
-    { label: 'Terms', path: '/#terms' },
-    { label: 'HIPAA Compliance', path: '/#hipaa' },
-    { label: 'Cookie Policy', path: '/#cookies' },
+    { label: 'Privacy Policy', path: '/coming-soon' },
+    { label: 'Terms', path: '/coming-soon' },
+    { label: 'Cookie Policy', path: '/coming-soon' },
   ]
 
   return (

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
+import { useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 
 const IMAGES = ['/video/dashboard.png', '/video/emr.png']
@@ -10,27 +11,28 @@ const FADE_START = 0.4
 const FADE_END = 0.55
 
 export default function ScreenMaterial({ mesh, scrollProgress = 0 }) {
-  const texturesRef = useRef([])
   const mixRef = useRef(0)
   const shaderRef = useRef(null)
   const { gl } = useThree()
+  
+  // useTexture suspends until images are loaded, ensuring they are ready
+  const textures = useTexture(IMAGES)
 
   useEffect(() => {
-    if (!mesh?.material) return
+    if (!mesh || !textures) return
 
     const maxAnisotropy = gl.capabilities.getMaxAnisotropy()
-    const loader = new THREE.TextureLoader()
-    const textures = IMAGES.map((src) => {
-      const tex = loader.load(src)
+    
+    // Configure textures
+    textures.forEach((tex) => {
       tex.colorSpace = THREE.SRGBColorSpace
       tex.flipY = true
       tex.anisotropy = maxAnisotropy
       tex.minFilter = THREE.LinearFilter
       tex.magFilter = THREE.LinearFilter
       tex.generateMipmaps = false
-      return tex
+      tex.needsUpdate = true
     })
-    texturesRef.current = textures
 
     // Create a custom ShaderMaterial for crossfading
     const shader = new THREE.ShaderMaterial({
@@ -57,7 +59,8 @@ export default function ScreenMaterial({ mesh, scrollProgress = 0 }) {
           vec4 color1 = texture2D(uTex1, vUv);
           vec4 color2 = texture2D(uTex2, vUv);
           vec4 mixed = mix(color1, color2, uMix);
-          gl_FragColor = mixed * (1.0 + uEmissiveIntensity);
+          // Multiply RGB by intensity, preserve alpha
+          gl_FragColor = vec4(mixed.rgb * (1.0 + uEmissiveIntensity), mixed.a);
         }
       `,
     })
@@ -67,10 +70,9 @@ export default function ScreenMaterial({ mesh, scrollProgress = 0 }) {
     shaderRef.current = shader
 
     return () => {
-      textures.forEach((t) => t.dispose())
       shader.dispose()
     }
-  }, [mesh])
+  }, [mesh, textures, gl])
 
   useFrame(() => {
     if (!shaderRef.current) return

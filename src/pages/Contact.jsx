@@ -192,6 +192,23 @@ export default function Contact() {
           cursor: not-allowed;
           transform: none;
         }
+
+        @media (max-width: 768px) {
+          .contact-form {
+            padding: 28px 24px;
+          }
+          .form-group input,
+          .form-group textarea {
+            padding: 14px;
+            font-size: 0.95rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .contact-form {
+            padding: 24px 16px;
+          }
+        }
       `}</style>
     </main>
   )

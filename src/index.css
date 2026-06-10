@@ -149,10 +149,21 @@ body::after {
   /* Hide custom cursor on mobile */
   .cursor-ring, [style*="cursor-dot"] { display: none; }
   body { cursor: auto; }
+
+  /* Fix hero min-height for smaller screens */
+  #hero { min-height: 90vh; }
+
+  /* Scroll indicator hidden on small mobile */
+  .scroll-chevron { display: none; }
 }
 
 @media (max-width: 480px) {
-  .btn-primary, .btn-ghost { width: 100%; text-align: center; }
+  .btn-primary, .btn-ghost {
+    width: 100%;
+    text-align: center;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
 }
 
 :focus-visible {

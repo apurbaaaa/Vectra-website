@@ -88,3 +88,42 @@
   font-size: 0.7rem;
   flex-shrink: 0;
 }
+
+@media (max-width: 768px) {
+  .feature-section {
+    min-height: auto;
+    padding: 60px 6vw;
+  }
+
+  .feature-content {
+    max-width: 100%;
+    padding: 28px 24px;
+    border-radius: 16px;
+  }
+
+  .feature-headline {
+    font-size: clamp(1.5rem, 6vw, 2.2rem);
+  }
+
+  .feature-stat {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  .feature-body {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-content {
+    padding: 24px 20px;
+  }
+
+  .feature-label {
+    font-size: 0.65rem;
+  }
+
+  .feature-bullet {
+    font-size: 0.88rem;
+  }
+}

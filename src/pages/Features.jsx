@@ -112,7 +112,7 @@ export default function Features() {
   return (
     <main style={{ paddingTop: '80px', overflowX: 'hidden' }}>
       {/* Intro Hero Section */}
-      <section style={{ padding: '80px 10vw 40px', textAlign: 'center' }}>
+      <section style={{ padding: '80px 6vw 40px', textAlign: 'center' }}>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, color: 'var(--color-text)', marginBottom: '20px' }}>
           Platform Features
         </h1>
@@ -141,7 +141,7 @@ export default function Features() {
 
         {/* Visual Navigation Indicator on the right */}
         <div className="feature-nav-dots">
-          {['Voice Dictation', 'AI Co-Pilot', 'Role Levels', 'Speed Engine', 'Security'].map((label, index) => (
+          {['Voice Dictation', 'AI Co-Pilot', 'Role Levels', 'Speed Engine', 'Dashboard'].map((label, index) => (
             <div key={index} className="nav-dot-wrapper">
               <span className="nav-dot-label">{label}</span>
               <div className="nav-dot" />

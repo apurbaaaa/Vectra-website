@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -6,6 +7,48 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function About() {
   const containerRef = useRef(null)
+  const activeIndexRef = useRef(0)
+  const firefliesRef = useRef([])
+
+  const fireflies = useMemo(() => {
+    return [...Array(80)].map(() => ({
+      width: Math.random() * 2 + 1,
+      height: Math.random() * 2 + 1,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      animDur: Math.random() * 10 + 10,
+      animDel: Math.random() * 5
+    }))
+  }, [])
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      firefliesRef.current.forEach((el) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const distX = clientX - centerX;
+        const distY = clientY - centerY;
+        const distance = Math.sqrt(distX * distX + distY * distY);
+        
+        // Push away if within 150px
+        if (distance < 150) {
+          const force = (150 - distance) / 150; 
+          const pushX = -(distX / distance) * force * 50;
+          const pushY = -(distY / distance) * force * 50;
+          el.style.transform = `translate(${pushX}px, ${pushY}px) scale(1.5)`;
+        } else {
+          el.style.transform = `translate(0px, 0px) scale(1)`;
+        }
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   useEffect(() => {
     // Responsive check: do not run pinned animations on mobile/tablet screens
@@ -113,7 +156,7 @@ export default function About() {
       {/* 1. Page Hero */}
       <section style={{
         minHeight: '60vh', display: 'flex', alignItems: 'center',
-        padding: '120px 10vw 80px',
+        padding: '120px 6vw 80px',
         background: 'radial-gradient(ellipse at 30% 50%, rgba(0,200,255,0.06) 0%, transparent 60%)'
       }}>
         <div>
@@ -151,21 +194,49 @@ export default function About() {
 
         {/* 3. Product Deep-Dive (3x2 card grid) */}
         <div className="about-panel">
-          <section className="about-content" style={{ padding: '0 10vw', width: '100%' }}>
+          {/* Background fireflies for glassmorphism effect */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+            {fireflies.map((ff, i) => (
+              <div 
+                key={i} 
+                style={{
+                  position: 'absolute',
+                  left: `${ff.left}%`,
+                  top: `${ff.top}%`,
+                  animation: `float-firefly ${ff.animDur}s infinite ease-in-out`,
+                  animationDelay: `${ff.animDel}s`
+                }}
+              >
+                <div
+                  ref={el => firefliesRef.current[i] = el}
+                  className="firefly"
+                  style={{
+                    width: `${ff.width}px`,
+                    height: `${ff.height}px`,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+
+          <section className="about-content" style={{ position: 'relative', zIndex: 1, padding: '0 10vw', width: '100%' }}>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', color: 'var(--color-text)', textAlign: 'center', marginBottom: '60px' }}>Core Capabilities</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
               {[
-                { title: 'Speech-to-Text', desc: 'Real-time dictation, 98.7% medical vocabulary accuracy' },
-                { title: 'AI Co-Pilot', desc: 'ICD coding, drug alerts, differential diagnosis' },
-                { title: 'Level Switching', desc: 'Doctor, Nurse, Admin, Lab — tailored per role' },
-                { title: '2-Minute Setup', desc: 'Fastest EMR onboarding in the industry' },
-                { title: 'HIPAA Security', desc: 'AES-256, zero-trust, SOC 2 Type II' },
-                { title: 'Cloud-Native', desc: '99.99% uptime SLA, any device, auto-updated' },
+                { title: 'Customize your own EMR', desc: 'Personalize workflows to fit your clinical needs' },
+                { title: 'Multi Level Switching EMR', desc: 'Tailored access for Doctors, Nurses, Admins, and Labs' },
+                { title: 'Smart Telemedicine', desc: 'Integrated virtual care with seamless documentation' },
+                { title: 'Smart History Management', desc: 'AI-driven patient history organization and retrieval' },
+                { title: 'Customizable Doctor Dashboard', desc: 'Your schedule, tasks, and patient overview in one place' },
+                { title: 'Interactive Doctor Friendly UI', desc: 'Designed for speed and ease of use in clinical settings' },
+                { title: 'Speech to Text EMR', desc: 'Real-time voice dictation for instant note creation' },
               ].map((card, i) => (
-                <div key={i} className="about-card">
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', color: 'var(--color-text)', marginBottom: '12px' }}>{card.title}</h3>
-                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>{card.desc}</p>
-                </div>
+                <article key={i} className="about-card">
+                  <header>
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', color: 'var(--color-text)', marginBottom: '12px' }}>{card.title}</h3>
+                  </header>
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--color-text-muted)', lineHeight: 1.6, margin: 0 }}>{card.desc}</p>
+                </article>
               ))}
             </div>
           </section>
@@ -185,46 +256,17 @@ export default function About() {
           </section>
         </div>
 
-        {/* 5. Team Section */}
-        <div className="about-panel">
-          <section className="about-content" style={{ padding: '0 10vw', width: '100%' }}>
-            <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', color: 'var(--color-text)', marginBottom: '16px' }}>The team behind Vectrah</h2>
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.1rem', color: 'var(--color-text-muted)', maxWidth: '600px', margin: '0 auto' }}>
-                A group of developers, physicians, and UX researchers committed to reshaping clinical software.
-              </p>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px' }}>
-              {[
-                { initials: 'AS', name: 'Dr. Aanya Sharma', role: 'Chief Medical Officer & Co-founder', bio: '12 years of clinical practice. Grew frustrated with legacy EMRs and decided to build a better one.' },
-                { initials: 'RM', name: 'Rohan Mehta', role: 'CEO & Co-founder', bio: 'Former healthcare IT lead who has scaled SaaS products for hospital networks across South Asia.' },
-                { initials: 'PN', name: 'Priya Nair', role: 'Head of AI/ML', bio: 'NLP specialist for medical text, focused on making AI feel native to clinical workflows.' },
-                { initials: 'CV', name: 'Carlos Vidal', role: 'Lead Full-Stack Engineer', bio: 'Architect of the Vectrah platform core. 8 years building HIPAA-compliant cloud systems.' },
-                { initials: 'LH', name: 'Dr. Lena Hoffmann', role: 'Clinical UX Researcher', bio: 'Bridges the gap between clinical thinking and software design.' },
-                { initials: 'TA', name: 'Tariq Al-Rashid', role: 'DevOps & Security Lead', bio: "Responsible for Vectrah's zero-trust infrastructure and SOC 2 compliance." },
-              ].map((member, i) => (
-                <div key={i} className="team-card">
-                  <div className="team-avatar">{member.initials}</div>
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', color: 'var(--color-text)', marginBottom: '4px' }}>{member.name}</h3>
-                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: 'var(--color-primary)', marginBottom: '16px', fontWeight: 600 }}>{member.role}</p>
-                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>{member.bio}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
 
         {/* 6. Contact / Partnership CTA */}
         <div className="about-panel">
           <section className="about-content" style={{ padding: '0 10vw', width: '100%', textAlign: 'center' }}>
-            <div style={{ padding: '80px', borderRadius: 'var(--radius-lg)', background: 'radial-gradient(ellipse at center, rgba(123,92,250,0.08) 0%, transparent 70%)' }}>
+            <div style={{ padding: 'clamp(30px, 6vw, 80px)', borderRadius: 'var(--radius-lg)', background: 'radial-gradient(ellipse at center, rgba(123,92,250,0.08) 0%, transparent 70%)' }}>
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', color: 'var(--color-text)', marginBottom: '20px' }}>Partner with Vectrah</h2>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.1rem', color: 'var(--color-text-muted)', marginBottom: '40px' }}>
                 Interested in enterprise pricing or a custom deployment?
               </p>
               <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-                <a href="mailto:hello@vectrah.io" className="btn-primary">hello@vectrah.io</a>
-                <a href="#" className="btn-ghost">Schedule a Call →</a>
+                <Link to="/contact" className="btn-primary">Contact Us</Link>
               </div>
             </div>
           </section>
@@ -232,7 +274,7 @@ export default function About() {
 
         {/* Visual Navigation Indicator on the right */}
         <div className="feature-nav-dots">
-          {['The Problem', 'Capabilities', 'Mission', 'Our Team', 'Partner'].map((label, index) => (
+          {['The Problem', 'Capabilities', 'Mission', 'Partner'].map((label, index) => (
             <div key={index} className="nav-dot-wrapper">
               <span className="nav-dot-label">{label}</span>
               <div className="nav-dot" />
@@ -249,6 +291,29 @@ export default function About() {
           overflow: hidden;
           background: var(--color-bg);
           border-top: 1px solid var(--color-border);
+        }
+
+        @keyframes float-firefly {
+          0% {
+            transform: translate(0, 0) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.2);
+          }
+          66% {
+            transform: translate(-20px, -20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+        }
+
+        .firefly {
+          border-radius: 50%;
+          background: radial-gradient(circle at center, #ffffff 0%, #00efff 50%, #7b5cfa 100%);
+          box-shadow: 0 0 12px 3px rgba(0, 239, 255, 1), 0 0 25px 8px rgba(0, 200, 255, 0.6);
+          transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          opacity: 1;
         }
 
         .about-panel {
@@ -307,16 +372,18 @@ export default function About() {
         }
 
         .about-card {
-          background: rgba(13, 17, 23, 0.5);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid var(--color-border);
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+          backdrop-filter: blur(28px) saturate(180%);
+          -webkit-backdrop-filter: blur(28px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-top: 1px solid rgba(255, 255, 255, 0.6);
+          border-left: 1px solid rgba(255, 255, 255, 0.5);
           border-radius: var(--radius-lg);
-          padding: 32px;
-          transition: background 0.25s;
-        }
-        :root[data-theme="light"] .about-card {
-          background: rgba(255, 255, 255, 0.7);
+          padding: 48px 40px;
+          min-height: 240px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+          position: relative;
+          overflow: hidden;
         }
 
         .team-card {
@@ -354,11 +421,25 @@ export default function About() {
             height: auto !important;
             opacity: 1 !important;
             transform: none !important;
-            padding: 60px 0;
+            padding: 40px 0;
             overflow-y: visible;
           }
           .feature-nav-dots {
             display: none;
+          }
+          .about-content {
+            padding: 0 6vw !important;
+          }
+          .about-card {
+            padding: 28px 24px;
+            min-height: auto;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-card {
+            padding: 24px 20px;
+            min-height: auto;
           }
         }
       `}</style>

@@ -1,8 +1,5 @@
-import { useTheme } from '../../contexts/ThemeContext'
-
 export default function SceneLighting() {
-  const { theme } = useTheme()
-  const isLight = theme === 'light'
+  const isLight = true
   return (
     <>
       <ambientLight color={isLight ? 0x8899cc : 0x304080} intensity={isLight ? 0.8 : 0.4} />

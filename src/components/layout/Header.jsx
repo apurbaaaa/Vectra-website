@@ -19,7 +19,6 @@ export default function Header() {
     { label: 'Features', path: '/features' },
     { label: 'About', path: '/about' },
     { label: 'Pricing', path: '/pricing' },
-    { label: 'Contact', path: '/contact' },
   ]
 
   return (
@@ -43,8 +42,8 @@ export default function Header() {
           </nav>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <Link to="/#demo" className="header__cta" id="header-cta">
-              Request Demo
+            <Link to="/contact" className="header__cta" id="header-cta">
+              Contact Us
             </Link>
           </div>
 
@@ -75,11 +74,11 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            to="/#demo"
+            to="/contact"
             className="mobile-drawer__cta"
             onClick={() => setMobileOpen(false)}
           >
-            Request Demo
+            Contact Us
           </Link>
         </nav>
       </div>
@@ -260,6 +259,12 @@ export default function Header() {
           .header__nav { display: none; }
           .header__cta { display: none; }
           .header__hamburger { display: flex; }
+          .header__logo img {
+            height: 120px !important;
+          }
+          .mobile-drawer {
+            width: 100%;
+          }
         }
       `}</style>
     </>
