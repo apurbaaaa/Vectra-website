@@ -260,7 +260,7 @@ export default function Header() {
           .header__cta { display: none; }
           .header__hamburger { display: flex; }
           .header__logo img {
-            height: 120px !important;
+            height: 48px !important;
           }
           .mobile-drawer {
             width: 100%;
